@@ -1,0 +1,7 @@
+interface:
+  display_name: "Feishu Deck-Customer Case"
+  short_description: "CSM文档快速生成客户案例卡片"
+  default_prompt: "Use $feishu-deck-customer-case to turn a CSM document into a concise Feishu-style customer case card."
+
+policy:
+  allow_implicit_invocation: true
