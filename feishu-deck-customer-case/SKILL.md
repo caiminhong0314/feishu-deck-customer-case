@@ -5,24 +5,50 @@ description: |
   cards from CSM/customer-success documents, customer stories, case materials,
   screenshots, and Lark/Feishu docs. Use for 客户案例, 案例卡片, 一页纸案例,
   one-pager case, 行业案例, 客户成功案例, 场景案例复盘, CSM 文档转案例卡片,
-  and case pages that should be produced with Feishu Deck 0613. Formerly
-  triggered as feishu-case.
+  and case pages that should be produced with a Feishu/Lark deck-generation
+  skill such as Feishu Deck 0613. Formerly triggered as feishu-case.
 ---
 
 # Feishu Deck-Customer Case
 
-This skill is a case-card design profile on top of **Feishu Deck 0613**. It
-does not replace the base deck skill. It defines how to understand, structure,
-and visually present customer cases while reusing Feishu Deck for production,
-rendering, validation, and delivery.
+This skill is a case-card design profile on top of **feishu-deck-h5**
+(`https://github.com/FuQiang/feishu-deck-h5`). It does not replace the base deck
+skill. It defines how to understand, structure, and visually present customer
+cases while reusing the base deck skill for production, rendering, validation,
+and delivery.
 
-## Mandatory Base Skill
+## Mandatory Base Deck Skill
 
-Before generation, editing, rendering, validation, or handoff, read and follow:
+Before generation, editing, rendering, validation, or handoff, locate and read
+the available base Feishu / Lark deck-generation skill.
+
+The canonical upstream dependency is `feishu-deck-h5`:
+
+`https://github.com/FuQiang/feishu-deck-h5`
+
+Do not depend on a single local display name. In different environments the base
+skill may appear as `feishu-deck-h5`, `Feishu Deck 0613`, `feishu-deck`, or
+another equivalent local name. Use the available skill list and descriptions to
+find the skill that owns Feishu / Lark HTML deck generation, DeckJSON rendering,
+raw-page production, visual validation, and delivery.
+
+In this maintainer's local environment, the known path is:
 
 `/Users/bytedance/.codex/skills/Feishu Deck 0613/SKILL.md`
 
-Inherit Feishu Deck 0613 requirements, including:
+Use that path only when it exists. If it does not exist, search the available
+skills / skill roots for `feishu-deck-h5` or an equivalent Feishu / Lark deck
+skill.
+
+If no equivalent base deck skill is installed, do not continue into HTML case
+generation. Explain that the current environment lacks the required base deck
+capability: this customer-case skill depends on `feishu-deck-h5` for DeckJSON
+rendering, raw-page production, visual validation, and delivery. Tell the user
+to install `feishu-deck-h5` first, and provide the link:
+
+`https://github.com/FuQiang/feishu-deck-h5`
+
+Inherit the base deck skill requirements, including:
 
 - DeckJSON-first workflow.
 - Design-first workflow.
@@ -562,6 +588,18 @@ Default case-card chrome should match the clean case-poster pattern:
 - Do not display `来源`, `数据口径`, calculation notes, or internal document links
   as a bottom footer by default. Keep source and caveat details in working notes,
   speaker notes, `DESIGN-PLAN.md`, or the final response.
+- Do not add a customer logo by default. Add customer / partner logos only when
+  the user explicitly requests them, the source page requires them for the case
+  format, or the reference layout strongly depends on a logo lockup. Do not infer
+  that a customer logo is needed just because a logo asset exists.
+- On dark case pages, do not add a white badge / white container behind logos by
+  default. Use the transparent / white Feishu logo directly. If a customer logo
+  is explicitly required, first look for a transparent, white, or dark-background
+  compatible logo treatment; use a white logo backing only when the user asks for
+  that branded lockup or when the reference design clearly requires it.
+- In Feishu Deck raw pages, do not manually add a second Feishu / Lark logo when
+  the base framework already injects a `.wordmark` / brand mark. Duplicate Feishu
+  logos are a page-chrome defect.
 - Show a visible source / data note only when the user explicitly asks for it,
   compliance requires it, or the page claim would be misleading without it.
 - If a visible source note is required, keep it compact and ensure it does not
@@ -739,6 +777,11 @@ Required discipline for subtitle-bearing pages:
 - If using `30px` exceeds the base Deck type ladder, explicitly mark the
   subtitle with `data-allow-typescale` rather than silently shrinking it to a
   weaker size.
+- Subtitle copy must be line-break safe at the final rendered width. Do not allow
+  the second line to contain only one or two Chinese characters or punctuation.
+  If this happens, first shorten redundant copy, remove repeated labels, or
+  rewrite the subtitle; do not solve it by silently shrinking the subtitle below
+  the case default.
 
 Required discipline for dense raw pages:
 
@@ -895,6 +938,8 @@ Preferred implementation:
   can weaken evidence credibility.
 - if full-image `contain` creates letterboxing, resize the container to match
   the image aspect ratio before switching to crop
+- never stretch evidence images by forcing incompatible width and height values;
+  preserve the source aspect ratio even inside scrollable viewports
 - if a detail needs emphasis, keep the full image visible and add a zoom inset
   or highlight rather than replacing the full image with an unexplained crop
 - if there is not enough space to show key images clearly, reduce text, remove
@@ -930,6 +975,20 @@ image viewing:
    - Remove white container or background treatment in the enlarged view unless
      the source image itself has a white background. Use a dark translucent
      overlay and let the image occupy as much of the viewport as possible.
+   - The enlarged image should be centered and should normally use about
+     `80% - 90%` of the visible page area when the source aspect ratio allows it.
+     Do not leave it as a small preview in the middle of a large overlay.
+   - A blurred or dimmed page background is acceptable, but the blur must apply
+     only behind the image. The enlarged foreground image itself must stay sharp
+     and visually on top of the overlay.
+   - In Feishu Deck raw pages, do not rely only on `opacity` or `display` to keep
+     the lightbox closed; framework entrance styles may override them. Use a
+     robust closed state such as `visibility: hidden` + `pointer-events: none`
+     and verify the page is not blurred before any image is clicked.
+   - Because Feishu Deck scales the 1920×1080 slide canvas, a lightbox placed
+     inside a slide may be scaled down if it uses only `vw` / `vh`. Prefer a
+     large canvas-sized viewport, for example about `1800×950` to `1840×1000`
+     canvas px, so the displayed image still fills the intended page area.
    - Do not add extra instructional copy, extra controls, or decorative chrome.
      A minimal close control is acceptable, but closing must also work by
      clicking the enlarged image itself and by clicking the surrounding overlay.
@@ -940,12 +999,30 @@ image viewing:
 
 ### Evidence Caption Policy
 
-Every important evidence image should include a short interpretation caption
-directly below the image. Keep this effect by default.
+Every important evidence image should include a short interpretation caption.
+The caption explains what the image proves, not where the image came from.
+
+Choose the caption placement based on image role and available space:
+
+1. `In-image caption`:
+   - Preferred for one or two dominant proof images.
+   - Place the caption inside the image area, usually as a bottom overlay, when
+     it can bind the interpretation directly to the screenshot without covering
+     key evidence.
+   - If the image is small, crowded, information-dense, or the overlay would
+     block the business object / key UI / proof text, move the caption above the
+     image instead.
+
+2. `Above-image caption strip`:
+   - Preferred for dense multi-image evidence matrices, such as 2×2 proof grids.
+   - Also use it when an in-image caption would make a small screenshot feel
+     cramped.
+   - Style it as a light-blue translucent strip with bold white centered text.
+     Use the Feishu Deck type ladder, usually `24px` or `28px` (`28px` when the
+     strip is the local proof title). Keep the caption short.
 
 Caption rules:
 
-- The caption explains what the image proves, not where the image came from.
 - Keep it short enough to read in presentation mode; avoid full-sentence source
   notes or calculation notes under images.
 - Prefer business capability language, such as `一店一群自动预警`,
@@ -953,7 +1030,7 @@ Caption rules:
 - Use captions to replace redundant paragraph explanation when the image already
   carries the proof.
 
-Default caption style for 16:9 raw case cards:
+Default compact below-image caption style for 16:9 raw case cards:
 
 - about `16px` font size, `500` weight, `1.12` line-height
 - compact padding around `10px 14px 12px`
@@ -1008,6 +1085,11 @@ Each page should usually have no more than `2-3` L1 metrics. If metric cards
 compete with the dominant proof visual, demote the weaker metrics before
 shrinking the evidence.
 
+For multi-page case decks, do not repeat the same metric band on every page.
+Put the core result metrics on the page where they set up the story, then let
+later mechanism / proof pages use that space for evidence unless a new metric
+directly proves that page's distinct claim.
+
 Metric card visual treatment:
 
 - Core metrics / conclusion cards may use a stronger blue gradient background to
@@ -1031,12 +1113,16 @@ Metric card visual treatment:
 - Avoid vague labels such as "solution" when a more specific action is known.
 - Use customer/domain language when it improves clarity.
 - Keep Chinese copy concise and natural.
-- Avoid orphan / short-tail wrapping in display copy. If a module title or key
-  sentence wraps so the second line has only one or two Chinese characters, treat
-  it as a copy/layout issue.
+- Avoid orphan / short-tail wrapping in display copy. This applies especially to
+  page titles, subtitles, module titles, and key conclusion sentences. If the
+  next line contains only one or two Chinese characters or punctuation, treat it
+  as a copy/layout issue, not a harmless browser wrap.
 - Fix short-tail wrapping by shortening redundant words, removing repeated
   labels already shown nearby, or tightening the phrase. Do not first solve it by
   shrinking only that line's font size.
+- For subtitles, prefer reducing the sentence to the core mechanism and outcome.
+  If a header already names the customer or page role, do not repeat those words
+  in the subtitle.
 - Example: if a card already has a `结果验证` tag, remove repeated title text
   such as `测试验证：` before considering font changes.
 
@@ -1115,6 +1201,8 @@ Before handoff, verify:
 - The page can be understood in 5-10 seconds.
 - There are no display-copy orphan lines where a second line contains only one
   or two Chinese characters.
+- The title/subtitle area has been visually checked after render; subtitles do
+  not end with a one-character or two-character tail line.
 - Key images are clear enough to read at presentation size.
 - Proof image corner radii are restrained, usually around `10px`, and do not
   make screenshots look like decorative cards.
