@@ -1,5 +1,6 @@
 ---
 name: feishu-deck-customer-case
+version: "v0.1.0"
 description: |
   Feishu Deck-Customer Case: generate and edit Feishu/Lark-style customer case
   cards from CSM/customer-success documents, customer stories, case materials,
