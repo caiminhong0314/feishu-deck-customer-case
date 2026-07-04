@@ -1,0 +1,8 @@
+interface:
+  display_name: "Feishu Deck-Customer Case Prototype"
+  short_description: "客户案例机制原型演示"
+  default_prompt: "Use $feishu-deck-customer-case-prototype to turn a CSM case document into a Feishu-style interactive prototype demo page."
+
+policy:
+  allow_implicit_invocation: true
+

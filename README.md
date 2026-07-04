@@ -31,6 +31,22 @@ python ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github
 
 安装后重启 Codex 以加载技能。
 
+## 技能分支
+
+当前仓库包含两个独立技能：
+
+1. `feishu-deck-customer-case`：证据型案例卡片，基于文档素材、截图证据和 Before & After 逻辑生成一页纸案例。
+2. `feishu-deck-customer-case-prototype`：原型型案例演示，基于案例机制生成可交互 HTML 原型页。
+
+两个技能独立安装、独立维护。技能二不要和技能一混用，除非明确需要同时生成案例卡片和原型演示。
+
+安装技能二：
+
+```bash
+python ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --url https://github.com/caiminhong0314/feishu-deck-customer-case/tree/main/feishu-deck-customer-case-prototype
+```
+
 ## 如何使用
 
 1. 提供最佳实践文档。
