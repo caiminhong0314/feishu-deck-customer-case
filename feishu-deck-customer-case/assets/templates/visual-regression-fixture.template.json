@@ -1,0 +1,17 @@
+{
+  "version": 4,
+  "case_id": "replace-with-stable-case-id",
+  "expected_page_count": 1,
+  "expected_layout_mode": "adaptive-evidence",
+  "expected_case_grammar": null,
+  "expected_flow_placement": null,
+  "expected_metric_treatment": null,
+  "expected_dominant_business_task": null,
+  "expected_metric_roles": [],
+  "expected_flow_evidence_order": [],
+  "expected_column_role_weights": null,
+  "required_story_roles": [],
+  "required_evidence_ids": [],
+  "base_deck_fingerprint": "record-at-evaluation-time",
+  "golden_screenshots": []
+}

@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "profiles": {
+    "case-standard-v2": {
+      "canvas": {
+        "width": 1920,
+        "height": 1080
+      },
+      "typography": {
+        "title_px": 48,
+        "title_max_cjk_chars": 28,
+        "subtitle_px": 30,
+        "caption_px": { "min": 16, "max": 20, "recommended": 18 },
+        "metric_value_px": { "min": 36, "max": 40, "recommended": 38 },
+        "copy_roles_px": {
+          "module-title": { "min": 24, "max": 26 },
+          "summary": { "min": 22, "max": 24 },
+          "body": { "min": 18, "max": 22 },
+          "flow-node": { "min": 18, "max": 20 },
+          "metric-value": { "min": 36, "max": 40 },
+          "metric-label": { "min": 18, "max": 22 },
+          "caption": { "min": 16, "max": 20 }
+        }
+      },
+      "spacing": {
+        "title_subtitle_gap_px": 10,
+        "column_gap_px": 15,
+        "caption_padding_px": { "vertical": 8, "horizontal": 12 },
+        "pain_card_min_gap_px": 6,
+        "pain_card_min_border_px": 0.5
+      },
+      "radii": {
+        "image_px": { "min": 8, "max": 12, "recommended": 10 },
+        "panel_px": { "min": 0, "max": 8, "recommended": 8 }
+      },
+      "regions_pct": {
+        "title": { "min": 14, "max": 20 },
+        "metrics-context": { "min": 6, "max": 12 },
+        "main": { "min": 64, "max": 80 },
+        "bottom-safe": { "min": 4, "max": 6 }
+      },
+      "horizontal_pct": {
+        "dominant_evidence_width": { "min": 45, "max": 72 },
+        "classic_mechanism_width": { "min": 42, "max": 58 },
+        "classic_mechanism_led": {
+          "pain": { "min": 20, "max": 26, "target": 22 },
+          "mechanism": { "min": 42, "max": 52, "target": 48 },
+          "result": { "min": 26, "max": 34, "target": 30 },
+          "declared_to_geometry_tolerance": 2
+        }
+      },
+      "readability": {
+        "dominant_evidence_min_width_pct": 45,
+        "wide_evidence_ratio_min": 1.5,
+        "wide_evidence_min_width_pct": 42,
+        "tall_evidence_ratio_max": 0.8,
+        "tall_evidence_max_width_pct": 40,
+        "evidence_min_rendered_content_width_px": 240,
+        "fit_coverage_min": {
+          "dominant": 0.6,
+          "supporting": 0.52,
+          "optional": 0.45
+        }
+      },
+      "surfaces": {
+        "result_gradient": {
+          "start_hex": "#2F6BEE",
+          "end_hex": "#163D9C",
+          "start_rgb": [47, 107, 238],
+          "end_rgb": [22, 61, 156],
+          "start_rgba": [47, 107, 238, 1],
+          "end_rgba": [22, 61, 156, 1],
+          "border_width_px": 0,
+          "forbidden_rgba": [
+            [105, 78, 210, 1],
+            [159, 111, 241, 1]
+          ]
+        },
+        "caption_alpha": { "min": 0.82, "max": 0.88, "recommended": 0.85 },
+        "caption_rgb_min": 248,
+        "pain_card_min_alpha": 0.08
+      },
+      "tolerance": {
+        "geometry_pct": 1.0,
+        "pixels": 1.5,
+        "peer_title_baseline_px": 2.0,
+        "reading_order_y_px": 24,
+        "reading_order_ambiguous_band_pct": 30,
+        "color_channel": 2,
+        "source_ratio_relative": 0.02
+      }
+    }
+  },
+  "overrideable_paths": [
+    "typography.title_px",
+    "typography.subtitle_px",
+    "typography.caption_px.recommended",
+    "typography.metric_value_px.recommended",
+    "spacing.title_subtitle_gap_px",
+    "spacing.column_gap_px",
+    "radii.image_px.recommended",
+    "radii.panel_px.recommended"
+  ]
+}

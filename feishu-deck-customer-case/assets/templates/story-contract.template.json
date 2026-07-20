@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "story_hash": "replace-with-approved-story-sha256",
+  "token_profile": "case-standard-v2",
+  "approved_overrides": [],
+  "page_count": 1,
+  "case_grammar": "classic-case-card",
+  "dominant_business_task": "mechanism",
+  "layout_recipe": "classic-case-card-v1",
+  "metric_band": {
+    "decision": "required",
+    "reason": "三个有来源且承担不同证明任务的 L1 结果需要在证据前形成结论入口。",
+    "metric_ids": ["measured-effect", "business-value", "efficiency-value", "operating-cadence"]
+  },
+  "metrics": [
+    {
+      "id": "measured-effect",
+      "level": "L1",
+      "metric_role": "measured-effect",
+      "unit_semantics": "percentage-point",
+      "evidence_status": "measured",
+      "display_requirement": "top-band"
+    },
+    {
+      "id": "business-value",
+      "level": "L1",
+      "metric_role": "business-value",
+      "unit_semantics": "currency",
+      "evidence_status": "estimated",
+      "display_requirement": "top-band"
+    },
+    {
+      "id": "efficiency-value",
+      "level": "L1",
+      "metric_role": "efficiency-value",
+      "unit_semantics": "currency",
+      "evidence_status": "estimated",
+      "display_requirement": "top-band"
+    },
+    {
+      "id": "operating-cadence",
+      "level": "L1",
+      "metric_role": "operating-cadence",
+      "unit_semantics": "count",
+      "evidence_status": "measured",
+      "display_requirement": "top-band"
+    }
+  ],
+  "mechanism_turns": [
+    {"id": "trigger", "label": "识别/触发", "evidence_requirement": "text-allowed"},
+    {"id": "feedback", "label": "执行/反馈", "evidence_requirement": "visual-if-available"},
+    {"id": "closure", "label": "判断/闭环", "evidence_requirement": "visual-if-available"}
+  ]
+}
