@@ -1,4 +1,7 @@
 interface:
   display_name: "Feishu Deck-Customer Case"
-  short_description: "先确认故事，再按素材比例自适应生成并验证飞书客户案例卡片"
-  default_prompt: "使用 $feishu-deck-customer-case 读取这份 CSM 文档，先提交本次运行的故事与页数决策供我确认，默认一页；再按实际素材比例选择自适应、以证据为核心的布局，并验证准确最终产物。"
+  short_description: "CSM文档快速生成客户案例卡片"
+  default_prompt: "Use $feishu-deck-customer-case to turn a CSM document into a concise Feishu-style customer case card."
+
+policy:
+  allow_implicit_invocation: true
